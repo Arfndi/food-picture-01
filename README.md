@@ -18,7 +18,11 @@ light, clean craft, and reading well small.
 `main.py` (Python 3.13, standard library only) copies `entry.png`, the
 image shipped in this repository, to `$MAKEFUN_OUTPUT_DIR/entry.png`
 (default `/output`). It draws nothing and uses no network, so both runs
-of the program write byte-identical output.
+of the program write byte-identical output. After the copy it verifies
+the result before exiting: the shipped image must match its known
+SHA-256, the output must be byte-identical to it, and the output must
+start with the JPEG SOI marker — a truncated or corrupted copy fails
+loudly instead of silently shipping a bad entry.
 
 The image is stored as JPEG data (the gate reads the file's magic bytes)
 under the name `entry.png`, as the competition allows.
